@@ -24,11 +24,16 @@ export const createUser = (user) => {
   return new Promise((resolve, reject) => {
     const query =
       "INSERT INTO usuarios (nombres, apellidoPaterno, apellidoMaterno, genero, telefono, correo)  VALUES (?, ?, ?, ?, ?, ?)";
-
+      
     const { nombres, apellidoPaterno, apellidoMaterno, genero, telefono, correo } = user;
 
     db.execute(query, [nombres, apellidoPaterno, apellidoMaterno, genero, telefono, correo])
-      .then((result) => resolve(result))
+      .then((result) => {
+        const id = result[0].insertId;
+        const userWithId = { id, ...user };
+        console.log(userWithId, 'wid')
+        resolve(userWithId);
+      })
       .catch((err) => reject(err));
   });
 };
@@ -41,7 +46,7 @@ export const updateUser = (id, user) => {
     const { nombres, apellidoPaterno, apellidoMaterno, genero, telefono, correo, } = user;
 
     db.execute(query, [nombres, apellidoPaterno, apellidoMaterno, genero, telefono, correo, id])
-      .then((result) => {console.log(result) ;resolve(result); })
+      .then((result) => { resolve(result) })
       .catch((err) => reject(err));
   });
 };
@@ -49,8 +54,8 @@ export const updateUser = (id, user) => {
 export const deleteUser = (id) => {
   return new Promise((resolve, reject) => {
     const query =
-      "DELETE FROM user WHERE id = ?";
-
+      "DELETE FROM usuarios WHERE id = ?";
+   console.log( id, 'aidi')
     db.execute(query, [id])
       .then((result) => resolve(result))
       .catch((err) => reject(err));

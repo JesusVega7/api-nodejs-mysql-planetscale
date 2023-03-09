@@ -33,10 +33,11 @@ export const createUser = (req, res) => {
   const user = req.body;
   userServices
     .createUser(user)
-    .then(() => {
+    .then((userWithId) => {
+      console.log(user)
       res.status(200).json({
         message: "User created successfully",
-        data: user,
+        data: userWithId,
       });
     })
     .catch((err) => {
