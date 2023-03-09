@@ -4,7 +4,6 @@ export const getUsers = (req, res) => {
   userServices
     .getUsers()
     .then((result) => {
-      console.log('hola')
       res.status(200).json({
         message: "Users retrieved successfully",
         data: result[0],
@@ -48,6 +47,7 @@ export const createUser = (req, res) => {
 export const updateUser = (req, res) => {
   const user = req.body;
   const { id } = req.params;
+
   userServices
     .updateUser(id, user)
     .then(() => {
