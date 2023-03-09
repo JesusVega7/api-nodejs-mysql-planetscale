@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import countryRouter from "./country.route.js";
+import userRouter from "./user.route.js";
 
 const indexRouter = Router();
 
@@ -10,6 +10,6 @@ indexRouter.get(prefix, (req, res) => {
   res.send("Welcome to Planetscale API");
 });
 
-indexRouter.use(`${prefix}/country`, countryRouter);
+indexRouter.use(`${prefix}/users`, userRouter);
 
 export default indexRouter;
